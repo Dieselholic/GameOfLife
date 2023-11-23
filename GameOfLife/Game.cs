@@ -397,7 +397,7 @@ namespace GameOfLife
             public List<ICell> GetCellNeighbours(ICell cell)
             {
                 var (posY, posX) = (((Cell)cell).PosY, ((Cell)cell).PosX);
-                return GetCellNeighbours(posX, posY);
+                return GetCellNeighbours(posY, posX);
             }
             #endregion
 
