@@ -97,9 +97,12 @@ namespace GameOfLife
         private void Render()
         {
             Console.Clear();
+            
+            DrawTopBorderLine(_desk.SizeX);
 
             foreach (var line in _desk.DeskView)
             {
+                Console.Write("║");
                 foreach (var cell in line)
                 {
                     if (cell)
@@ -111,14 +114,17 @@ namespace GameOfLife
                         DrawDeadCell();
                     }
                 }
-                Console.WriteLine();
+                Console.WriteLine("║");
             }
+
+            DrawBottomBorderLine(_desk.SizeX);
         }
 
         private static void DrawAliveCell()
         {
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Red;
+            
             Console.Write("1 ");
             Console.ResetColor();
         }
@@ -126,9 +132,46 @@ namespace GameOfLife
         private static void DrawDeadCell()
         {
             Console.BackgroundColor = ConsoleColor.Green;
-            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.Green;
+            //Console.Write("░░");
             Console.Write("0 ");
             Console.ResetColor();
+        }
+
+        private static void DrawTopBorderLine(int length)
+        {
+            Console.Write("╔");
+            for (int i = 0; i < length * 2; i++)
+            {
+                Console.Write("═");
+            }
+            Console.WriteLine("╗");
+        }
+
+        private static void DrawBottomBorderLine(int length)
+        {
+            Console.Write("╚");
+            for (int i = 0; i < length * 2; i++)
+            {
+                Console.Write("═");
+            }
+            Console.WriteLine("╝");
+        }
+
+        private static void DrawLine(bool[] line)
+        {
+            //foreach (var item in collection)
+            //{
+
+            //    if (cell)
+            //    {
+            //        DrawAliveCell();
+            //    }
+            //    else
+            //    {
+            //        DrawDeadCell();
+            //    }
+            //}
         }
 
         ////////////////////////////////////////////////////
@@ -138,6 +181,9 @@ namespace GameOfLife
             private readonly int _sizeX;
             private ICell[][] _data;
             private readonly HashSet<ICell> _aliveCells;
+
+            public int SizeX => _sizeX;
+            public int SizeY => _sizeY;
 
             public bool[][] DeskView
             {
